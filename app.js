@@ -10,7 +10,7 @@ GAME RULES:
 */
 
 var scores, roundScore, activePlayer, gamePlaying;
-
+var lastRoll;
 init();
 
 function nextPlayer() {
@@ -25,18 +25,30 @@ function nextPlayer() {
 
    document.querySelector('.dice').style.display = 'none';
 }
-//dice = Math.floor(Math.random() * 6) + 1;
+
 
   document.querySelector('.btn-roll').addEventListener('click', function() {
     if(gamePlaying) {
      //1.  We need a random number
+     
       var dice = Math.floor(Math.random() * 6) + 1;
     //2. Display result
       var diceDOM = document.querySelector('.dice');
       diceDOM.style.display = 'block';
       diceDOM.src = 'dice-' + dice + '.png';
     //3. If dice does NOT equal 1, player accumulates score and rolls again
-        if(dice !== 1) {
+        if( dice == 6 && lastRoll == 6) {
+          //Erase Current score and Next player
+         
+          document.querySelector('#score-' + activePlayer).textContent = '0';
+          document.querySelector('#current-' + activePlayer).textContent = '0';
+          scores[activePlayer] = 0;
+          roundScore = 0;
+          
+          //console.log(lastRoll);
+          dice = 0;
+          nextPlayer();
+        } else if(dice !== 1) {
        //Accumulate Score
          roundScore += dice;
          document.getElementById('current-' + activePlayer).textContent = roundScore;
@@ -44,18 +56,19 @@ function nextPlayer() {
        //Next Player
           nextPlayer();
         }
-      }
-    });
+
+        lastRoll  = dice;
+    }
+  });
 
 document.querySelector('.btn-hold').addEventListener('click', function() {
   if(gamePlaying) {
   //take player-current-score/current-# and add to score-#
   //score[activePlayer] = document.getElementById('current-' + activePlayer).innerH
+    lastRoll = 0;
     scores[activePlayer] += roundScore;
     document.querySelector('#score-' + activePlayer).textContent = scores[activePlayer];
- /* score[activePlayer] = document.getElementById('current-' + activePlayer).textContent = roundScore;
-  var totalScore = document.getElementById('score-' + activePlayer).textContent = roundScore;
-  totalScore += totalScore;*/
+
   //set player-current-score to 0
     roundScore = 0;
     document.getElementById('current-' + activePlayer).textContent = roundScore;
