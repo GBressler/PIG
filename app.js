@@ -9,7 +9,7 @@ GAME RULES:
 
 */
 
-var scores, roundScore, activePlayer, gamePlaying;
+var scores, roundScore, activePlayer, gamePlaying, goal;
 var lastRoll;
 init();
 
@@ -37,7 +37,7 @@ function nextPlayer() {
       diceDOM.style.display = 'block';
       diceDOM.src = 'dice-' + dice + '.png';
     //3. If dice does NOT equal 1, player accumulates score and rolls again
-        if( dice == 6 && lastRoll == 6) {
+        if( dice === 6 && lastRoll === 6) {
           //Erase Current score and Next player
          
           document.querySelector('#score-' + activePlayer).textContent = '0';
@@ -73,7 +73,7 @@ document.querySelector('.btn-hold').addEventListener('click', function() {
     roundScore = 0;
     document.getElementById('current-' + activePlayer).textContent = roundScore;
   //Check if player won
-    if(scores[activePlayer] >= 100) {
+    if(scores[activePlayer] >= goal) {
       document.querySelector('#score-' + activePlayer).innerHTML = '<uppercase>you win!</uppercase>';
       document.querySelector('.dice').style.display = 'none';
       document.querySelector('.player-' + activePlayer + '-panel').classList.add('winner');
@@ -93,9 +93,10 @@ function init() {
   roundScore = 0;
   activePlayer = 0;
   gamePlaying = true;
+  goal = document.getElementById('goal').value;
 
   document.querySelector('.dice').style.display = 'none';
-  
+
   document.getElementById('score-0').textContent = '0';
   document.getElementById('score-1').textContent = '0';
   document.getElementById('current-0').textContent = '0';

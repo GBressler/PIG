@@ -42,10 +42,36 @@ body {
     width: 50%;
     float: left;
     height: 600px;
-    padding: 100px;
+    padding: 50px;
 }
 
+.goal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /*position: absolute;
+    width: 200px;
+    left: 50%;
+    transform: translateX(-50%);*/
+    color: #555;
+    background: none;
+    border: none;
+    font-family: Lato;
+    font-size: 20px;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-weight: 300;
+    transition: background-color 0.3s, color 0.3s;
+    margin-top: 30px;
+    margin-bottom: 10px;
+   }
 
+.goal:hover { font-weight: 600; }
+.goal:hover i { margin-right: 20px; }
+
+#goal {
+    font-size: 14px;
+}
 
 /**********************************************
 *** PLAYERS
@@ -137,7 +163,7 @@ i {
     transition: margin 0.3s;
 }
 
-.btn-new { top: 45px;}
+.btn-new { top: 70px;}
 .btn-roll { top: 403px;}
 .btn-hold { top: 467px;}
 
